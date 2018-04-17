@@ -25,7 +25,7 @@ def dataline(l, counter, size):
     print(line, end='\n');
 
 def readFile():
-    f = open('katse2.h');
+    f = open('prev.h');
     lines = f.readlines();
     res = [];
     data = [];
