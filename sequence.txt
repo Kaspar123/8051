@@ -1,0 +1,143 @@
+title PC <--> CP210x communication
+participant PC
+participant CP210x
+
+PC->CP210x: (0) IFC_ENABLE 0
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (16) GET_COMM_STATUS
+CP210x-->PC: waiting for **CTS**, 512 bytes waiting \nin the input queue
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+PC->CP210x: (19) SET_FLOW
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (30) SET_BAUDRATE 115200
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=0, RTS_mask=1
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+CP210x -->PC: **DTR=1, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (19) SET_FLOW
+PC->CP210x: (30) SET_BAUDRATE 115200
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=0, RTS_mask=1
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=1, RTS_mask=0
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (19) SET_FLOW
+PC->CP210x: (30) SET_BAUDRATE 115200
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=0, RTS_mask=1
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=1, RTS_mask=0
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (19) SET_FLOW
+PC->CP210x: (30) SET_BAUDRATE 115200
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=0, RTS_mask=1
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=1, RTS_mask=0
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (19) SET_FLOW
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=1, RTS=0, DTR_mask=1, RTS_mask=0
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=1, DTR_mask=0, RTS_mask=1
+CP210x -->PC: **DTR=1, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=1, RTS=1, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=1, RTS=1, CTS=0, DSR=0**
+PC->CP210x: (18) PURGE(0x0005)\nclear receive queues
+PC->CP210x: (18) PURGE(0x000a)\nclear transmit queues
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=1, RTS_mask=0
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=1, DTR_mask=0, RTS_mask=1
+CP210x -->PC: **DTR=0, RTS=1, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (30) SET_BAUDRATE 115200
+CP210x -->PC: **DTR=0, RTS=1, CTS=0, DSR=0**
+PC-->>(3)CP210x: **...**
+CP210x-->>PC: **...**
+PC->CP210x: (5) SET_BREAK(0x0000)
+PC->CP210x: (0) IFC_DISABLE 0
+CP210x->CP210x: wait(~70ms)
+PC->CP210x: (0) IFC_ENABLE 0
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=0, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (16) GET_COMM_STATUS
+CP210x-->PC: waiting for **CTS**, 512 bytes waiting \nin the input queue
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+PC->CP210x: (19) SET_FLOW
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (30) SET_BAUDRATE 115200
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=0, DTR_mask=0, RTS_mask=1
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (3) SET_LINE_CTL(0x0800)\n stop bit=0, parity=none, wordlen=8
+CP210x -->PC: **DTR=1, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (25) SET_CHARS\neof=13, error=11
+PC->CP210x: (19) SET_FLOW
+PC-->>(3)CP210x: **...**
+CP210x-->>PC: **...**
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=1, RTS=0, DTR_mask=1, RTS_mask=0
+PC->CP210x: (8) GET_MDMSTS
+PC->CP210x: (7) SET_MHS\nset modem handshaking:\n**DTR=0, RTS=1, DTR_mask=0, RTS_mask=1
+CP210x -->PC: **DTR=1, RTS=0, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=1, RTS=1, CTS=0, DSR=0**
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=1, RTS=1, CTS=0, DSR=0**
+PC->CP210x: (18) PURGE(0x000a)\nclear transmit queues
+PC ->CP210x: /00IDED.
+CP210x ->CP210x: wait(~15ms)
+CP210x -->PC:  /A00IDS7R20 B00400228B0020024\n2P00100322F33500 011FT00000000000 E.
+PC->CP210x: (18) PURGE(0x000a)\nclear transmit queues
+PC ->CP210x: /00IDED.
+PC->CP210x: (8) GET_MDMSTS
+CP210x -->PC: **DTR=1, RTS=1, CTS=0, DSR=0**
+
+CP210x -->PC:  /A00IDS7R20 B00400228B0020024\n2P00100322F33500 011FT00000000000 E.
+
+PC->CP210x: (18) PURGE(0x0005)\nclear receive queues
+PC->CP210x: (18) PURGE(0x000a)\nclear transmit queues
+PC->CP210x: (5) SET_BREAK(0x0000)
+PC->CP210x: (0) IFC_DISABLE 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
