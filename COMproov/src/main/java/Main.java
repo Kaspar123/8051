@@ -1,3 +1,6 @@
+import controller.Constants;
+import controller.PLC;
+import controller.Response;
 import jssc.*;
 
 /**
@@ -5,27 +8,25 @@ import jssc.*;
  */
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
-        /**String[] ports = SerialPortList.getPortNames();
-        for (String port : ports) {
-            System.out.println(port);
-        }**/
-        final SerialPort serialPort = new SerialPort("/dev/ttyUSB0");
-        try {
-            serialPort.openPort();
-            serialPort.setParams(SerialPort.BAUDRATE_9600,
-                                 SerialPort.DATABITS_8,
-                                 SerialPort.STOPBITS_1,
-                                 SerialPort.PARITY_NONE);
-            serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_IN |
-                                            SerialPort.FLOWCONTROL_RTSCTS_OUT);
-            byte[] data = {0x2f, 0x30, 0x30, 0x49, 0x44, 0x45, 0x44, 0x0d};
-            //serialPort.purgePort(SerialPort.PURGE_RXABORT | SerialPort.PURGE_RXCLEAR);
-            serialPort.writeBytes(data);
-            byte[] response = serialPort.readBytes();
+    public static void main(String[] args) throws SerialPortException {
 
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        }
+        PLC unitronics = new PLC("/dev/ttyUSB0", Constants.BAUDRATE_115200);
+
+        //System.out.println(unitronics.getBaudRate());
+
+        unitronics.synchronize();
+        //System.out.println(code);
+
+        //Response res = unitronics.status();
+        //Response res = unitronics.identify();
+        //Response res = unitronics.reset();
+
+        Response res = unitronics.stopDownloadRestart();
+        res = unitronics.reset();
+
+        String format = String.format("Object: %s, Code: %s", res.getBody(), res.getStatusCode());
+        System.out.println(format);
+
+
     }
 }
