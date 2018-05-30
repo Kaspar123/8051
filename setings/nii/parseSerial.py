@@ -28,7 +28,7 @@ def filterData(data):
 	temp = []
 	for packet in data:
 		for line in packet:
-			if '0x2f' in line:
+			if '0x2f' in line[18:18+5]:
 				start = True;
 				temp.append(line[18:])
 			elif start:
@@ -44,8 +44,8 @@ def render(filename1, filename2):
 	data = filterData(data)
 	data2 = filterData(data2)
 	for i in range(len(data)):
-		#line = "{0} --> {1}".format(data[i][0], data2[i][0])
-		line = "{0}".format(data2[i][0])
+		line = "{0} --> {1}".format(data[i][0], data2[i][0])
+		#line = "{0}".format(data[i][0])
 		print(line)
 
 if __name__ == '__main__':
